@@ -4,7 +4,7 @@ import Cast from './Inside.jsx'
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router';
 import { useParams } from "react-router"
-import { DataContext } from '/Users/keerthana/Desktop/Movie/movie-recommendation/src/App.jsx'
+import { DataContext } from '../App.jsx'
 import Recommandation from './Recommandation.jsx'
 
 import Grid from '@mui/material/Grid';
