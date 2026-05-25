@@ -1,0 +1,7 @@
+.watch-btn {
+    margin-right: 10px !important;
+    background: linear-gradient(135deg, #020202, #3f2424) !important;
+    color: rgb(242, 232, 232) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3) !important;
+}

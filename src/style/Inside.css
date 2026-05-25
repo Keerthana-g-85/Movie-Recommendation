@@ -1,0 +1,33 @@
+body {
+    background-color: #0f0f0f;
+}
+
+.cast {
+    background: linear-gradient(135deg, #111111, #f09ae0) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 25px rgba(228, 4, 194, 0.25) !important;
+}
+
+.image {
+    width: 150px !important;
+    height: 150px !important;
+    border-radius: 10% !important;
+    margin: 15px auto !important;
+}
+
+.name {
+    color: #d487a9 !important;
+    font-size: 24px !important;
+    font-weight: 900 !important;
+    font-family: 'Trebuchet MS', sans-serif !important;
+    font-style: italic;
+}
+
+.text {
+    color: #d487a9 !important;
+    font-size: 16px !important;
+    margin-top: 10px !important;
+    font-family: 'Trebuchet MS', sans-serif !important;
+    font-style: italic;
+
+}

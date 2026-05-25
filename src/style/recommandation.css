@@ -1,0 +1,26 @@
+.scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px ;
+    scroll-behavior: smooth;
+}
+
+.recommandation-card {
+    min-width: 250px;
+    max-width: 280px;
+    height: 500px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #111111, #2b0000) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.25) !important;
+}
+
+.recommand-photo {
+    width: 75% !important;
+    height: 200px !important;
+    border-radius: 15px;
+    margin: 20px auto 0 auto;
+}
+
+
