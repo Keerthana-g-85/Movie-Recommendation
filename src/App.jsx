@@ -40,7 +40,7 @@ export default function App(){
       {/* <Link to='/recommand'>Recommand</Link> */}
       <Routes>
         <Route path='/Display' element={<Display />}>Home</Route>
-        <Route path='/movies/:id' element={<Cast />}></Route>
+        <Route path='/cast/:id' element={<Cast />}></Route>
         <Route path='/' element={<Choice />}></Route>
         {/* <Route path='/recommand' element={<Recommandation />}></Route> */}
       </Routes>

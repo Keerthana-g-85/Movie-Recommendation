@@ -51,7 +51,7 @@ export function Display(){
             <Grid size={{ xs: 12, md: 4 }} key={movie.id} className="grid">
             <Card className="card">
 
-                <Link to={`/movies/${id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/cast/${id}`} style={{ textDecoration: 'none' }}>
                     <Button className="choice-btn" onClick={() => handleToGo(movie.movie_id)}>
                         <CardMedia
                             component="img"
