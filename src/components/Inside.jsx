@@ -2,9 +2,9 @@ import { useState,useEffect,createContext,useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router';
 import { useParams } from "react-router"
-import { DataContext } from '/Users/keerthana/Desktop/Movie/movie-recommendation/src/App.jsx'
+import { DataContext } from '../App.jsx'
 
-import '/Users/keerthana/Desktop/Movie/movie-recommendation/src/style/Inside.css';
+import '../style/Inside.css';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';

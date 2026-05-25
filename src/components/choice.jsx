@@ -1,10 +1,10 @@
 import { useState,useEffect,createContext,useContext } from 'react';
-import { DataContext } from '/Users/keerthana/Desktop/Movie/movie-recommendation/src/App.jsx'
+import { DataContext } from '../App.jsx'
 import { useNavigate } from 'react-router';
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-import '/Users/keerthana/Desktop/Movie/movie-recommendation/src/style/choice.css';
+import '../style/choice.css';
 import Typography from '@mui/material/Typography';
 
 export default function Choice(){

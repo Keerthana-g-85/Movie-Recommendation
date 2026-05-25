@@ -1,11 +1,11 @@
 import { useState,useEffect,createContext,useContext } from 'react';
-import { DataContext } from '/Users/keerthana/Desktop/Movie/movie-recommendation/src/App.jsx'
+import { DataContext } from '../App.jsx'
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import '/Users/keerthana/Desktop/Movie/movie-recommendation/src/style/recommandation.css';
+import '../style/recommandation.css';
 
 export default function Recommandation(){
     const {data,choice}= useContext(DataContext)

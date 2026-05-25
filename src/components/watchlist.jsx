@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import Button from '@mui/material/Button';
-import '/Users/keerthana/Desktop/Movie/movie-recommendation/src/style/Watchlist.css';
+import '../style/Watchlist.css';
 export default function Watch(){
 
     const[watchlist,setWatchlist] = useState(false)

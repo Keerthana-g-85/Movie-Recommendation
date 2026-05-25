@@ -13,7 +13,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import '/Users/keerthana/Desktop/Movie/movie-recommendation/src/style/display.css';
+import '../style/display.css';
 
 
 export function Display(){
