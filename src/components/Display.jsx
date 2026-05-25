@@ -15,14 +15,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import '../style/display.css';
 
-
 export function Display(){
 
     const {data,choice} = useContext(DataContext)
 
     const [search,setSearch] = useState('')
     const [debounce,setDebounce] = useState('')
-    const [movieid,setMovieid] = useState(null)
 
     useEffect(()=>{
         const debounceTimer = setTimeout(()=>{
@@ -31,28 +29,35 @@ export function Display(){
         return ()=>clearTimeout(debounceTimer)
     },[search])
 
-
     const searchBook = data.filter((data) => {
     return data.original_title.toLowerCase().includes(debounce.toLowerCase()) ||
             String(data.popularity).startsWith(debounce) || data.genre.toLowerCase().includes(debounce.toLowerCase()) })
 
-    function handleToGo(movie_id){
-        console.log(movie_id)
-        setMovieid(movie_id)
-    }
     return(
         <>
-        
         <input className="search-box" type='text' placeholder="Search...." value={search} onChange={(e)=>setSearch(e.target.value)}/> 
         <Recommandation />
+        <Movie/>
+
+        </>
+    )
+}
+
+export function Movie(){
+
+    const {data,choice} = useContext(DataContext)
+
+
+    return(
+        <>
         <Typography className='text'>Movie:</Typography>
         <Grid container spacing={3}>
-            {searchBook.map((movie, id) => (
+            {data.map((movie, id) => (
             <Grid size={{ xs: 12, md: 4 }} key={movie.id} className="grid">
             <Card className="card">
 
                 <Link to={`/cast/${id}`} style={{ textDecoration: 'none' }}>
-                    <Button className="choice-btn" onClick={() => handleToGo(movie.movie_id)}>
+                    <Button className="choice-btn" >
                         <CardMedia
                             component="img"
                             image={movie.poster_path}
@@ -78,10 +83,10 @@ export function Display(){
                 <Watch />
             </CardContent>
 
-    </Card>
-</Grid>
-    ))}
-</Grid>
+            </Card>
+            </Grid>
+            ))}
+            </Grid>
         </>
     )
 }

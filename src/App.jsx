@@ -12,8 +12,6 @@ export default function App(){
 
    const [choice,setChoice] = useState([])
 
-   
-
     useEffect(()=>{
         // fetch("https://jsonfakery.com/movies/paginated")
         fetch('https://api.jsonbin.io/v3/b/6a0ff4d3ee5a733b12fdba32', {
@@ -39,7 +37,7 @@ export default function App(){
 
       {/* <Link to='/recommand'>Recommand</Link> */}
       <Routes>
-        <Route path='/Display' element={<Display />}>Home</Route>
+        <Route path='/Display' element={<Display />}></Route>
         <Route path='/cast/:id' element={<Cast />}></Route>
         <Route path='/' element={<Choice />}></Route>
         {/* <Route path='/recommand' element={<Recommandation />}></Route> */}

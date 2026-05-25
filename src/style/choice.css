@@ -9,7 +9,9 @@ body {
     align-items: center;
     padding: 30px;
     gap: 10px;
+
 }
+
 
 .grid-item {
     height: 330px;
@@ -22,7 +24,10 @@ body {
     box-shadow: 0 10px 25px rgba(127, 29, 29, 0.6);
     transition: transform 0.3s ease;
 }
+.changeColor{
+    background:linear-gradient(135deg, #1ca221, #263727) !important;
 
+} 
 
 
 .choice-btn {
@@ -63,3 +68,4 @@ body {
     pointer-events: auto !important; 
     cursor: not-allowed !important;
 }
+
