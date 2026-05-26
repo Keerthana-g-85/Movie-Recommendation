@@ -3,14 +3,16 @@ import Cast from './components/Inside.jsx'
 import {BrowserRouter,Route,Routes,Link} from 'react-router'
 import Choice from './components/choice.jsx'
 import Recommandation from './components/Recommandation.jsx'
-import { useState,useEffect,createContext,useContext } from 'react';
 
+import { useState,useEffect,createContext,useContext } from 'react';
+// const Cast = lazy(() => import('./components/Inside.jsx'));
 export const DataContext = createContext('')
 export default function App(){
 
    const [data,setData]=useState([])
 
    const [choice,setChoice] = useState([])
+   const [watchlist, setWatchlist] = useState([]);
 
     useEffect(()=>{
         // fetch("https://jsonfakery.com/movies/paginated")
@@ -31,15 +33,21 @@ export default function App(){
   return(
     
     <>
-    <DataContext.Provider value={{data , choice , setChoice}}>
+    <DataContext.Provider value={{data , choice , setChoice , watchlist, setWatchlist}}>
     <BrowserRouter>
       <Link to='/'></Link>
 
       {/* <Link to='/recommand'>Recommand</Link> */}
       <Routes>
-        <Route path='/Display' element={<Display />}></Route>
-        <Route path='/cast/:id' element={<Cast />}></Route>
+        <Route path='/display' element={<Display />}></Route>
+        {/* <Route path='/cast/:id' element={
+          <Suspense fallback={<h2>Loading...</h2>}>
+            <Cast />
+          </Suspense>
+        }></Route> */}
         <Route path='/' element={<Choice />}></Route>
+        <Route path='/cast' element={<Cast />}></Route>
+
         {/* <Route path='/recommand' element={<Recommandation />}></Route> */}
       </Routes>
     </BrowserRouter>
