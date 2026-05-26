@@ -26,14 +26,12 @@ export function Display(){
     const [filter,setFilter] = useState('')
 
     useEffect(()=>{
-        console.log('start timeout');
         const debounceTimer = setTimeout(()=>{
             setDebounce(search)
         },1000);
 
         const returnFunc =  ()=>{
             console.log('Clearing timeout')
-            clearTimeout(debounceTimer)
         }
 
         return returnFunc;
@@ -42,7 +40,7 @@ export function Display(){
     const FilteredBooks= data.filter((data) => {
     const searchBook = data.original_title.toLowerCase().includes(debounce.toLowerCase()) ||
             String(data.popularity).startsWith(debounce) || data.genre.toLowerCase().includes(debounce.toLowerCase());
-    const FilterGenre =  data.genre.includes(filter);
+    const FilterGenre =  data.genre.toLowerCase().includes(filter.toLowerCase());
 
     return searchBook && FilterGenre
 })
@@ -79,6 +77,7 @@ export function Display(){
                                 boxShadow:
                                     '0 10px 25px rgba(255, 0, 0, 0.25)',
                             }}>
+                                
                             <Link
                                 to={`/cast/${id}`}
                                 style={{ textDecoration: 'none' }}>

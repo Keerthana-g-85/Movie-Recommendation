@@ -1,10 +1,12 @@
-import {useState} from 'react'
+import {useState,useContext} from 'react'
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router';
-import '../style/Watchlist.css';
-export default function Watch(){
+import { DataContext } from '../App'
 
-    const[watchlist,setWatchlist] = useState(false)
+
+import '../style/Watchlist.css';
+export default function Watch({movie}){
+    const { watchlist, setWatchlist } = useContext(DataContext);
     const[add , setAdd] = useState(false)
 
     function handleWatched() {
@@ -41,7 +43,7 @@ export default function Watch(){
       </Button>
 
       <Button sx={button} onClick={handleWatchlist}>
-        {watchlist.includes(movie.id) ? 'Remove' : '+'}
+        {watchlist.length> 0 && watchlist.includes(movie.id) ? 'Remove' : '+'}
       </Button>
     </>
   );

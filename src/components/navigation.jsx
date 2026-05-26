@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router';
 
 
-
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -57,18 +56,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function ButtonAppBar({ search, setSearch }) {
+export default function ButtonAppBar({ search, setSearch , setFilter}) {
     const [anchorEl, setAnchorEl] = useState(null)
+    let nav=useNavigate()
     const open = Boolean(anchorEl);
     const grid = ["Horror", "Comedy","Thriller","Drama","Family","Romance","Fantasy","Adventure","Animation","Action","SciFi","Mystery"];
-     let nav=useNavigate();
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleClose = (item) => {
+        console.log(item)
         if (typeof item === 'string') {
         setFilter(item);
+        
     }
         setAnchorEl(null);
     };
@@ -98,6 +99,7 @@ export default function ButtonAppBar({ search, setSearch }) {
                     >
                         Filter
                     </Button>
+
                     <Menu
                         anchorEl={anchorEl}
                         open={open}
@@ -108,7 +110,7 @@ export default function ButtonAppBar({ search, setSearch }) {
                         
                         
                     </Menu>
-                    <Button color="inherit">Wishlist</Button>
+                    <Button color="inherit" onClick={()=>{nav('/watchlist')}} sx={{ marginLeft: '10px' }}>Watchlist</Button>
                 </Toolbar>
             </AppBar>
         </Box>
