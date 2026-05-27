@@ -12,7 +12,9 @@ import { useEffect, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router';
-
+import FilterListIcon from '@mui/icons-material/FilterList';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useSelector } from 'react-redux';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -56,32 +58,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function ButtonAppBar({ search, setSearch , setFilter}) {
-    const [anchorEl, setAnchorEl] = useState(null)
-    let nav=useNavigate()
+export default function ButtonAppBar({ search, setSearch , setFilter }) {
+
+    const { name,email } = useSelector((state) => state.auth);
+
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const grid = ["Horror", "Comedy","Thriller","Drama","Family","Romance","Fantasy","Adventure","Animation","Action","SciFi","Mystery"];
+
+    let nav = useNavigate();
+    
+    const grid = ['Horror', 'Comedy','Thriller','Drama','Family','Romance','Fantasy','Adventure','Animation','Action','SciFi','Mystery'];
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleClose = (item) => {
-        console.log(item)
+        console.log(item);
         if (typeof item === 'string') {
-        setFilter(item);
-        
-    }
+            setFilter(item);
+        }
         setAnchorEl(null);
     };
-    
+
     return (
         <Box sx={{ backgroundColor: 'white', color: 'red' }} >
-            <AppBar sx={{ backgroundColor: 'white', color: 'red' }} position="static">
+            <AppBar position="static" sx={{ backgroundColor: '#1f1f1f', color: 'white' }}>
                 <Toolbar>
-
-                    <Typography variant="h6" component="div" >
-                        Netflix
-                    </Typography>
+                    <Typography variant="h6" component="div" > Movie Recommmand </Typography>
                     <Search sx={{ flexGrow: 0.5 }}>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -91,26 +95,32 @@ export default function ButtonAppBar({ search, setSearch , setFilter}) {
                             className="search-box"
                             inputProps={{ 'aria-label': 'search' }}
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
+                            onChange={(e) => setSearch(e.target.value)}/>
                     </Search>
-                    <Button
-                        onClick={handleClick}
-                    >
-                        Filter
-                    </Button>
+
+                        <IconButton onClick={handleClick} color="inherit">
+                            <FilterListIcon />
+                        </IconButton>
 
                     <Menu
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}>
-                            {grid.map((item,id)=>{
-                                return <MenuItem key={id} onClick={()=>handleClose(item)}>{item}</MenuItem>
-                            })}
-                        
-                        
+                        {grid.map((item,id) => {
+                            return <MenuItem key={id} onClick={() => handleClose(item)}>{item}</MenuItem>;
+                        })}
                     </Menu>
-                    <Button color="inherit" onClick={()=>{nav('/watchlist')}} sx={{ marginLeft: '10px' }}>Watchlist</Button>
+
+                        <IconButton onClick={() => nav('/watchlist')} color="inherit">
+                            <BookmarkIcon />
+                        </IconButton>
+
+                    {name && (
+                        <Box sx={{ marginLeft: 'auto', textAlign: 'right', color: 'white' }}>
+                            <Typography variant="body2">{name}</Typography>
+                            <Typography variant="body2">{email}</Typography>
+                        </Box>)}
+                        
                 </Toolbar>
             </AppBar>
         </Box>

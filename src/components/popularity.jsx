@@ -1,41 +1,73 @@
-import { useState,useEffect,createContext,useContext } from 'react';
-import { DataContext } from '../App.jsx'
-import Grid from '@mui/material/Grid';
+import { useContext } from 'react';
+import { DataContext } from '../App.jsx';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
+export default function Popularity() {
+    const { data } = useContext(DataContext);
 
+    const topten = [...data]
+        .sort((a, b) => b.popularity - a.popularity)
+        .slice(0, 10);
 
-export function Popularity(){
-     const {data}= useContext(DataContext)
-     const moviedata = data
-     const topten = moviedata.sort((a,b)=>(b.popularity-a.popularity)).slice(0,10);
-     console.log(topten)
+    return (
+        <Box sx={{
+                display: 'flex',
+                gap: '20px',
+                overflowX: 'auto',
+                padding: '20px',
+                scrollBehavior: 'smooth',
+                backgroundColor: '#111',
+                '&::-webkit-scrollbar': {
+                    height: '8px',
+                },}}>
+            {topten.map((movie) => (
+                <Card
+                    key={movie.id}
+                    sx={{
+                        minWidth: 260,
+                        maxWidth: 260,
+                        backgroundColor: '#1f1f1f',
+                        color: 'white',
+                        borderRadius: '16px',
+                        boxShadow: '0 8px 20px rgba(229, 9, 20, 0.25)',
+                        transition: 'transform 0.3s ease',
+                        flexShrink: 0,
+                        '&:hover': {
+                            transform: 'scale(1.04)',
+                        },
+                    }}>
+                    <CardMedia
+                        component="img"
+                        image={movie.poster_path}
+                        alt={movie.original_title}
+                        sx={{
+                            height: 350,
+                            objectFit: 'cover',
+                        }}/>
 
-     return(
-        <>
-        <div className="scroll" style={{display: 'flex', gap: '20px', overflow : 'auto',padding: '20px' ,scrollBehavior: 'smooth'}}>
-        {topten.map((movie) => (
-                    <Card key={movie.id} className="recommandation-card">
-                        <CardMedia component="img" image={movie.poster_path} alt={movie.original_title} className="recommand-photo"/>
+                    <CardContent>
+                        <Typography sx={{
+                                color: '#d76d73',
+                                fontWeight: 'bold',
+                                fontSize: '18px',
+                                marginBottom: '10px',
+                            }}>{movie.original_title} </Typography>
 
-                        <CardContent>
-                            <Typography className="title">{movie.original_title}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: '14px' }}>Genre: {movie.genre}</Typography>
 
-                            <Typography className="text">Genre: {movie.genre}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: '14px' }}>Release: {movie.release_date}</Typography>
 
-                            <Typography className="text">Release: {movie.release_date}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: '14px' }}>Popularity: {movie.popularity}</Typography>
 
-                            <Typography className="text">Popularity: {movie.popularity}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: '14px' }}>Age: {movie.age}</Typography>
 
-                            <Typography className="text">Age: {movie.age}</Typography>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </>
-     )
-
+                    </CardContent>
+                </Card>
+            ))}
+        </Box>
+    );
 }

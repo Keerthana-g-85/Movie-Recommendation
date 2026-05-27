@@ -1,168 +1,157 @@
-import { useState,useEffect,createContext,useContext } from 'react';
-import React , {lazy , Suspense} from 'react';
-import Watch from './watchlist.jsx'
-import { useNavigate } from 'react-router';
+import { useState, useEffect, useContext} from 'react';
 import { Link } from 'react-router';
-import { useParams } from "react-router"
-import { DataContext } from '../App.jsx'
-import Recommandation from './Recommandation.jsx'
-import {Popularity} from './popularity.jsx'
-import ButtonAppBar from './navigation.jsx'
+
+
+import Recommendation from './Recommandation.jsx';
+import Popularity from './popularity.jsx';
+import Watch from './watchlist.jsx';
+import ButtonAppBar from './navigation.jsx';
+import { DataContext } from '../App.jsx';
+
 
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import '../style/display.css';
-
-export function Display(){
-
-    const {data,choice} = useContext(DataContext)
-
-    const [search,setSearch] = useState('')
-    const [debounce,setDebounce] = useState('')
-    const [filter,setFilter] = useState('')
-
-    useEffect(()=>{
-        const debounceTimer = setTimeout(()=>{
-            setDebounce(search)
-        },1000);
-
-        const returnFunc =  ()=>{
-            console.log('Clearing timeout')
-        }
-
-        return returnFunc;
-    },[search])
-
-    const FilteredBooks= data.filter((data) => {
-    const searchBook = data.original_title.toLowerCase().includes(debounce.toLowerCase()) ||
-            String(data.popularity).startsWith(debounce) || data.genre.toLowerCase().includes(debounce.toLowerCase());
-    const FilterGenre =  data.genre.toLowerCase().includes(filter.toLowerCase());
-
-    return searchBook && FilterGenre
-})
+import Box from '@mui/material/Box';
 
 
-    return(
-        <>
-        <ButtonAppBar search={search} setSearch={setSearch} setFilter={setFilter}/>
-        {/* <input className="search-box" type='text' placeholder="Search...." value={search} onChange={(e)=>setSearch(e.target.value)}/>  */}
-        <Popularity/>
-        <Recommandation />
-        <Typography
-                sx={{
-                    fontSize: '15px',
-                    color: '#f5d0d0',
-                    fontFamily: 'Arial, sans-serif',
-                    lineHeight: 1.6,
-                    marginBottom: '10px',
-                    textAlign: 'justify',
-                }} > Movie:
-            </Typography>
-        <Grid container spacing={3}>
-                {FilteredBooks.map((movie, id) => (
+export default function Display() {
+
+    const { data } = useContext(DataContext);
+
+    const [search, setSearch] = useState('');
+    const [debounce, setDebounce] = useState('');
+    const [filter, setFilter] = useState('');
+
+    useEffect(() => {
+        const debounceTimer = setTimeout(() => {
+            setDebounce(search);
+        }, 1000);
+
+        return () => clearTimeout(debounceTimer);
+    }, [search]);
+
+    const filteredMovies = data.filter((movie) => {
+        const searchMovie =
+            movie.original_title.toLowerCase().includes(debounce.toLowerCase()) ||
+            String(movie.popularity).startsWith(debounce) ||
+            movie.genre.toLowerCase().includes(debounce.toLowerCase());
+
+        const filterGenre =
+            filter === '' || movie.genre.toLowerCase().includes(filter.toLowerCase());
+
+        return searchMovie && filterGenre;
+    });
+
+    const textStyle = {
+        fontSize: '14px',
+        color: '#d1d1d1',
+        fontFamily: '\'Segoe UI\', sans-serif',
+        lineHeight: 1.6,
+        marginBottom: '10px',
+    };
+
+    const box ={
+        backgroundColor: '#111',
+        Height: '100vh',
+        paddingBottom: '40px',
+    };
+
+    const heading ={
+        fontSize: '18px',
+        fontWeight: 100,
+        color: '#f3f0f0',
+        fontFamily: '\'Trebuchet MS\', sans-serif',
+        letterSpacing: '2px',
+        textTransform: 'uppercase',
+        marginBottom: '30px',
+    };
+
+    const card = {
+        height: '800px',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'linear-gradient(135deg, #1a1a1a, #000000)',
+        borderRadius: '20px',
+        boxShadow:'0 10px 25px rgba(229, 9, 20, 0.25)',
+        transition: 'transform 0.3s ease',
+        '&:hover': {
+            transform: 'scale(1.02)',
+        },
+    };
+
+    const image ={
+         width: '80%',
+        height: '350px',
+        objectFit: 'cover',
+        borderRadius: '15px',
+        margin: '20px auto',
+    }
+
+    const title ={
+        fontSize: '24px',
+        fontWeight: 700,
+        color: '#e97177',
+        fontFamily:'\'Trebuchet MS\', sans-serif',
+        letterSpacing: '1px',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        marginBottom: '15px',
+    }
+    return (
+        <Box sx={box} >
+            <ButtonAppBar search={search} setSearch={setSearch} setFilter={setFilter}/>
+
+            <Box sx={{ marginBottom: '40px' }}>
+                <Popularity />
+            </Box>
+
+            <Box sx={{ marginBottom: '40px' }}>
+                <Recommendation />
+            </Box>
+
+            <Typography sx={heading}> Movies </Typography>
+
+            <Grid container spacing={4} sx={{ padding: '20px' }}>
+                {filteredMovies.map((movie, id) => (
                     <Grid size={{ xs: 12, md: 4 }} key={movie.id}>
-                        <Card
-                            sx={{
-                                height: '850px',
-                                width: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                background:
-                                    'linear-gradient(135deg, #201515, #770404)',
-                                borderRadius: '30px',
-                                boxShadow:
-                                    '0 10px 25px rgba(255, 0, 0, 0.25)',
-                            }}>
-                                
-                            <Link
-                                to={`/cast/${id}`}
-                                style={{ textDecoration: 'none' }}>
-                                <CardMedia
-                                    component="img"
-                                    image={movie.poster_path}
-                                    alt={movie.original_title}
-                                    sx={{
-                                        width: '50%',
-                                        height: '300px',
-                                        borderRadius: '15px',
-                                        margin: '20px',
-                                    }}/>
+                        <Card sx={ card }>
+                            <Link to={`/cast/${id}`} style={{ textDecoration: 'none' }} >
+                                <CardMedia component="img" image={movie.poster_path} alt={movie.original_title} sx={image}/>
                             </Link>
 
-                            <CardContent sx={{
-                                    padding: '20px',
-                                    textAlign: 'left',
-                                    flexGrow: 1,
-                                }}>
-                            < Typography sx={{
-                                        fontSize: '28px',
-                                        fontWeight: 700,
-                                        color: '#ff9b9b',
-                                        fontFamily: 'Trebuchet MS, sans-serif',
-                                        marginBottom: '15px',
-                                        textAlign: 'center',
-                                    }}> {movie.original_title}</Typography>
-
-                            <Typography sx={{
-                                        fontSize: '15px',
-                                        color: '#f5d0d0',
-                                        fontFamily: 'Arial, sans-serif',
-                                        lineHeight: 1.6,
-                                        marginBottom: '10px',
-                                        textAlign: 'justify',
-                                    }}> Synopsis: {movie.overview} </Typography>
+                            <CardContent sx={{ padding: '20px', flexGrow: 1, }} >
+                                <Typography sx={title} > {movie.original_title} </Typography>
 
                                 <Typography
                                     sx={{
-                                        fontSize: '15px',
-                                        color: '#f5d0d0',
-                                        fontFamily: 'Arial, sans-serif',
-                                        lineHeight: 1.6,
-                                        marginBottom: '10px',
-                                        textAlign: 'justify',}}>Release Date: {movie.release_date}</Typography>
+                                        ...textStyle,
+                                        display: '-webkit-box',
+                                        WebkitLineClamp: 4,
+                                        WebkitBoxOrient: 'vertical',
+                                        overflow: 'hidden',
+                                        minHeight: '90px',
+                                    }}>
+                                    Synopsis: {movie.overview}
+                                </Typography>
 
-                                <Typography
-                                    sx={{
-                                        fontSize: '15px',
-                                        color: '#f5d0d0',
-                                        fontFamily: 'Arial, sans-serif',
-                                        lineHeight: 1.6,
-                                        marginBottom: '10px',
-                                        textAlign: 'justify',
-                                    }}>Popularity: {movie.popularity}</Typography>
+                                <Typography sx={textStyle}> Release Date: {movie.release_date}</Typography>
 
-                                <Typography
-                                    sx={{
-                                        fontSize: '15px',
-                                        color: '#f5d0d0',
-                                        fontFamily: 'Arial, sans-serif',
-                                        lineHeight: 1.6,
-                                        marginBottom: '10px',
-                                        textAlign: 'justify',
-                                    }}>Genre: {movie.genre}</Typography>
+                                <Typography sx={textStyle}> Popularity: {movie.popularity} </Typography>
 
-                                <Typography
-                                    sx={{
-                                        fontSize: '15px',
-                                        color: '#f5d0d0',
-                                        fontFamily: 'Arial, sans-serif',
-                                        lineHeight: 1.6,
-                                        marginBottom: '10px',
-                                        textAlign: 'justify',
-                                    }}>Age: {movie.age}</Typography>
+                                <Typography sx={textStyle}> Genre: {movie.genre}</Typography>
 
-                <Watch movie={movie} />
-            </CardContent>
+                                <Typography sx={textStyle}> Age: {movie.age} </Typography>
 
-            </Card>
+                                <Watch movie={movie} />
+
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
             </Grid>
-            ))}
-            </Grid>
-        
-        </>
-    )
+        </Box>
+    );
 }
