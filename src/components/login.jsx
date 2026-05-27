@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { getName } from '../redux/userSlice';
-import { Box, TextField, Button, Typography, Stack } from '@mui/material';
+import { Box, TextField, Button, Typography, Stack, Container } from '@mui/material';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -12,10 +12,11 @@ export default function Login() {
     const handleSuccess = (credentialResponse) => {
         const decoded = jwtDecode(credentialResponse.credential);
         dispatch(getName({ name: decoded.name, email: decoded.email }));
-        navigate('/');
+        navigate('/choice');
     };
 
     return (
+        <Container component='body' sx={{bgcolor:'black',flexGrow:1}}>
         <Box
             sx={{
                 width: 350,
@@ -47,7 +48,7 @@ export default function Login() {
                 variant="contained"
                 fullWidth
                 sx={{ mt: 2 }}
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/choice')}
             >
         Login
             </Button>
@@ -59,5 +60,6 @@ export default function Login() {
                 />
             </Box>
         </Box>
+        </Container>
     );
 }

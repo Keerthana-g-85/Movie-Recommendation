@@ -10,11 +10,14 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@mui/material/Button';
+import { useSelector } from 'react-redux';
 
 export default function Cast() {
     const { data } = useContext(DataContext);
     const { id } = useParams();
     const navigate = useNavigate();
+
+    const { name,email } = useSelector((state) => state.auth);
 
     const moviedata = data[id]?.casts;
 
@@ -39,7 +42,7 @@ export default function Cast() {
         border: '3px solid #eee7e7',
     };
 
-    const name = {
+    const nameStyle = {
         color: '#e99fa3',
         fontSize: '22px',
         fontWeight: 700,
@@ -73,7 +76,17 @@ export default function Cast() {
     return (
         <Box sx={{ backgroundColor: '#111', minHeight: '100vh', padding: '30px',}}>
 
-            <Button variant="contained" onClick={() => navigate('/display')} sx={backButton} startIcon={<ArrowBackIcon />}> Back </Button>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                    <Button variant="contained" onClick={() => navigate('/display')} sx={backButton} startIcon={<ArrowBackIcon />}> Back </Button>
+
+                    {name && (
+                        <Box sx={{ textAlign: 'right', color: 'white' }}>
+                            <Typography variant="body2">{name}</Typography>
+                            <Typography variant="body2">{email}</Typography>
+                        </Box>
+                    )}
+                </Box>
+
 
             <Typography
                 sx={{
@@ -100,7 +113,7 @@ export default function Cast() {
                                 sx={image}/>
 
                             <CardContent>
-                                <Typography sx={name}>{movie.name}</Typography>
+                                <Typography sx={nameStyle}>{movie.name}</Typography>
 
                                 <Typography sx={text}>Character: {movie.character}</Typography>
 

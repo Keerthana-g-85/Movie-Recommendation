@@ -2,7 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 
 
-import { Grid, Button, Typography } from '@mui/material';
+import { Grid, Button, Typography} from '@mui/material';
+import {Container} from '@mui/material';
 
 import { DataContext } from '../App.jsx';
 
@@ -72,7 +73,8 @@ export default function Choice() {
     };
 
     return (
-        <>
+        <Container component='body' sx={{bgcolor:'black',flexGrow:1}}>
+        
             <Typography variant="h4" sx={heading}> Select At Least 3 Genres </Typography>
 
             <Grid container spacing={4} sx={gridContainer}>
@@ -98,7 +100,7 @@ export default function Choice() {
             <Button className="submit-btn" disabled={disable} onClick={() => navigate('/Display')} sx={submitBtn}>
                 Submit
             </Button>
-        </>
+        </Container>
     );
 }
 

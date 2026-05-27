@@ -13,11 +13,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { useNavigate } from 'react-router';
 
+import { useSelector } from 'react-redux';
+
 export default function Watchlist() {
 
     const navigate = useNavigate();
 
     const { data, watchlist } = useContext(DataContext);
+
+    const { name,email } = useSelector((state) => state.auth);
 
     const wantMovie = data.filter((movie) => watchlist.includes(movie.id));
 
@@ -95,7 +99,17 @@ export default function Watchlist() {
     return (
         <Box sx={box}>
             <Container>
-                <Button variant="contained" onClick={() => navigate('/display')} sx={backButton} startIcon={<ArrowBackIcon />}> Back </Button>
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                    <Button variant="contained" onClick={() => navigate('/display')} sx={backButton} startIcon={<ArrowBackIcon />}> Back </Button>
+
+                    {name && (
+                        <Box sx={{ textAlign: 'right', color: 'white' }}>
+                            <Typography variant="body2">{name}</Typography>
+                            <Typography variant="body2">{email}</Typography>
+                        </Box>
+                    )}
+                </Box>
 
                 <Typography sx={heading}>My Watchlist</Typography>
 

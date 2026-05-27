@@ -1,13 +1,13 @@
 import { BrowserRouter,Route,Routes,Link } from 'react-router';
 import { useState,useEffect,createContext,useContext,lazy,Suspense } from 'react';
-
+import { CssBaseline } from '@mui/material';
 
 import  Display  from './components/Display.jsx';
 import Choice from './components/choice.jsx';
 import Recommandation from './components/Recommandation.jsx';
 import Watchlist from './components/wantTowatch.jsx';
 import Login from './components/login.jsx';
-
+import './App.css'
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -37,6 +37,7 @@ export default function App() {
     return (
 
     <>
+    <CssBaseline />
         <GoogleOAuthProvider clientId={clientId}>
             <DataContext.Provider value={{ data , choice , setChoice , watchlist, setWatchlist }}>
                 <BrowserRouter>
@@ -47,9 +48,9 @@ export default function App() {
                             <Cast />
                         </Suspense>}>
                         </Route>
-                        <Route path='/' element={<Choice />}></Route>
+                        <Route path='/choice' element={<Choice />}></Route>
                         <Route path='/watchlist' element={<Watchlist />}></Route>
-                        <Route path='/login' element={<Login/>}></Route>
+                        <Route path='/' element={<Login/>}></Route>
                     </Routes>
                 </BrowserRouter>
             </DataContext.Provider>

@@ -12,8 +12,22 @@ export default function Popularity() {
     const topten = [...data]
         .sort((a, b) => b.popularity - a.popularity)
         .slice(0, 10);
+    
+        const heading = {
+        fontSize: '18px',
+        fontWeight: 100,
+        color: 'white',
+        fontFamily: '\'Trebuchet MS\', \'Verdana\', sans-serif',
+        letterSpacing: '2px',
+        textTransform: 'uppercase',
+        fontStyle: 'italic',
+        marginTop: '20px',
+        marginBottom: '20px',
+    }
 
     return (
+        <>
+        <Typography sx={heading} > Top 10 Movie </Typography>
         <Box sx={{
                 display: 'flex',
                 gap: '20px',
@@ -69,5 +83,6 @@ export default function Popularity() {
                 </Card>
             ))}
         </Box>
+        </>
     );
 }

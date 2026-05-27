@@ -46,7 +46,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
@@ -85,7 +84,7 @@ export default function ButtonAppBar({ search, setSearch , setFilter }) {
         <Box sx={{ backgroundColor: 'white', color: 'red' }} >
             <AppBar position="static" sx={{ backgroundColor: '#1f1f1f', color: 'white' }}>
                 <Toolbar>
-                    <Typography variant="h6" component="div" > Movie Recommmand </Typography>
+                    <Typography variant="h6" component="div" > CineFlix </Typography>
                     <Search sx={{ flexGrow: 0.5 }}>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -120,7 +119,7 @@ export default function ButtonAppBar({ search, setSearch , setFilter }) {
                             <Typography variant="body2">{name}</Typography>
                             <Typography variant="body2">{email}</Typography>
                         </Box>)}
-                        
+
                 </Toolbar>
             </AppBar>
         </Box>
